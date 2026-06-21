@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Noto Serif SC', 'Playfair Display', Georgia, serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #2a1810;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%232a1810"/%3E%3Cpath d="M0,20 Q25,15 50,20 T100,20" stroke="%233a2416" fill="none" stroke-width="1" opacity="0.5"/%3E%3Cpath d="M0,50 Q25,45 50,50 T100,50" stroke="%233a2416" fill="none" stroke-width="1" opacity="0.5"/%3E%3Cpath d="M0,80 Q25,75 50,80 T100,80" stroke="%233a2416" fill="none" stroke-width="1" opacity="0.5"/%3E%3C/svg%3E');
+  color: #120a06;
+}
+
+@layer components {
+  .parchment-card {
+    @apply bg-parchment-100 bg-parchment-texture rounded-lg shadow-card border border-parchment-200;
+  }
+
+  .parchment-card-hover:hover {
+    @apply shadow-card-hover border-parchment-300;
+  }
+
+  .ink-title {
+    @apply font-serif font-semibold text-ink-900 tracking-wide;
+  }
+
+  .seal-btn {
+    @apply px-4 py-2 bg-seal text-parchment-50 rounded font-serif font-medium
+           hover:bg-seal-dark active:scale-95 transition-all duration-200
+           shadow-stamp border-2 border-seal-dark;
+  }
+
+  .amber-btn {
+    @apply px-4 py-2 bg-amber-warm text-ink-900 rounded font-serif font-medium
+           hover:bg-amber-dark hover:text-parchment-50 active:scale-95
+           transition-all duration-200 shadow-card border border-amber-dark/30;
+  }
+
+  .ghost-btn {
+    @apply px-4 py-2 border border-ink-700/40 text-ink-700 rounded font-serif
+           hover:bg-ink-700/10 active:scale-95 transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 rounded border border-parchment-300 bg-parchment-50
+           text-ink-900 font-body placeholder-ink-500/50
+           focus:outline-none focus:border-amber-warm focus:ring-2 focus:ring-amber-warm/20
+           transition-all duration-150;
+  }
+
+  .textarea-field {
+    @apply w-full px-3 py-2 rounded border border-parchment-300 bg-parchment-50
+           text-ink-900 font-body placeholder-ink-500/50 resize-y min-h-[80px]
+           focus:outline-none focus:border-amber-warm focus:ring-2 focus:ring-amber-warm/20
+           transition-all duration-150;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer
+           font-serif text-ink-700 hover:bg-ink-700/10
+           transition-all duration-200;
+  }
+
+  .nav-item-active {
+    @apply bg-amber-warm/20 text-ink-900 font-semibold border-r-4 border-amber-warm;
+  }
+
+  .clue-card {
+    @apply parchment-card parchment-card-hover p-5 cursor-pointer
+           transition-all duration-300 relative overflow-hidden;
+  }
+
+  .clue-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(180, 134, 11, 0.05) 100%);
+    pointer-events: none;
+  }
+
+  .timeline-node {
+    @apply relative flex items-start gap-4 pb-8 last:pb-0;
+  }
+
+  .timeline-node::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #b8860b, transparent);
+  }
+
+  .timeline-node:last-child::before {
+    display: none;
+  }
+
+  .timeline-dot {
+    @apply w-8 h-8 rounded-full bg-amber-warm border-2 border-amber-dark
+           flex items-center justify-center flex-shrink-0 text-ink-900 font-bold text-sm
+           shadow-card z-10;
+  }
+
+  .divider-ink {
+    @apply h-px bg-gradient-to-r from-transparent via-ink-700/30 to-transparent my-4;
+  }
+
+  .select-field {
+    @apply w-full px-3 py-2 rounded border border-parchment-300 bg-parchment-50
+           text-ink-900 font-body
+           focus:outline-none focus:border-amber-warm focus:ring-2 focus:ring-amber-warm/20
+           transition-all duration-150;
+  }
+}
+
+.no-print {
+  @media print {
+    display: none !important;
+  }
+}
+
+.print-only {
+  display: none !important;
+  @media print {
+    display: block !important;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(42, 24, 16, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 165, 116, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 165, 116, 0.7);
+}
